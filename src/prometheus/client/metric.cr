@@ -1,3 +1,5 @@
+require "./label_set_validator"
+
 module Prometheus
   module Client
     class Metric
