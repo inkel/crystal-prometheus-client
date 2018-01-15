@@ -27,7 +27,8 @@ module Prometheus
       end
 
       def get(name : Symbol)
-        @metrics[name]?
+        raise ArgumentError.new("#{name} hasn't been registered") unless exist?(name)
+        @metrics[name]
       end
 
       def counter(name, docstring, base_labels)

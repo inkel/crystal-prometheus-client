@@ -63,9 +63,11 @@ describe Prometheus::Client::Registry do
       end
     end
 
-    it "returns nil if the metric has not been registered yet" do
+    it "fails if the metric has not been registered yet" do
       with_registry do |registry|
-        registry.get(:test).should eq(nil)
+        expect_raises(ArgumentError) do
+          registry.get(:test)
+        end
       end
     end
   end
