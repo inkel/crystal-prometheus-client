@@ -2,6 +2,8 @@
 
 A suite of instrumentation metric primitives for Ruby that can be exposed through a HTTP interface. Intended to be used together with a [Prometheus server][prometheus].
 
+[![Build Status](https://travis-ci.org/inkel/crystal-prometheus-client.svg?branch=master)](https://travis-ci.org/inkel/crystal-prometheus-client)
+
 ## Installation
 
 Add this to your application's `shard.yml`:
