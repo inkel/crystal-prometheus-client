@@ -2,17 +2,17 @@ require "./metric"
 
 module Prometheus
   module Client
-    class Gauge < Metric
+    class Gauge < Metric(Float64)
       def set(labels = {} of Symbol => String, value : Float64 = 0.0)
-        @values[labels] = value
+        values[labels] = value
       end
 
       def increment(labels = {} of Symbol => String, by : Float64 = 1.0)
-        @values[labels] += by
+        values[labels] += by
       end
 
       def decrement(labels = {} of Symbol => String, by : Float64 = 1.0)
-        @values[labels] -= by
+        values[labels] -= by
       end
     end
   end

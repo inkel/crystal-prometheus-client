@@ -2,7 +2,7 @@ require "./label_set_validator"
 
 module Prometheus
   module Client
-    class Metric
+    class Metric(T)
       getter name, docstring, base_labels
 
       def initialize(@name : Symbol, @docstring : String, @base_labels = {} of Symbol => String)
@@ -10,12 +10,15 @@ module Prometheus
         validate_docstring
 
         @validator = LabelSetValidator.new
-        @values = Hash(Hash(Symbol, String), Float64).new{ |h,k| h[k] = 0.0 }
+      end
+
+      def values
+        @values ||= Hash(Hash(Symbol, String), Float64).new{ |h,k| h[k] = 0.0 }
       end
 
       def get(labels = {} of Symbol => String)
         @validator.valid?(labels)
-        @values[labels]
+        values[labels]
       end
 
       RE_NAME = /\A[a-zA-Z_:][a-zA-Z0-9_:]*\Z/
