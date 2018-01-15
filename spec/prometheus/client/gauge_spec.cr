@@ -24,8 +24,8 @@ describe Prometheus::Client::Gauge do
 
     it "sets a metric value for a given label set" do
       with_gauge do |gauge|
-        gauge.set({ :test => "value" }, 5.0)
-        gauge.get({ :test => "value" }).should eq(5.0)
+        gauge.set({:test => "value"}, 5.0)
+        gauge.get({:test => "value"}).should eq(5.0)
         gauge.get.should eq(0.0)
       end
     end

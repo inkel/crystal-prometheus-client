@@ -17,7 +17,7 @@ module Prometheus
       end
 
       def values
-        @bucket_values ||= Hash(Hash(Symbol, String), Value).new{ |h,k| h[k] = Value.new(buckets) }
+        @bucket_values ||= Hash(Hash(Symbol, String), Value).new { |h, k| h[k] = Value.new(buckets) }
       end
 
       class Value < Hash(Float64, Float64)

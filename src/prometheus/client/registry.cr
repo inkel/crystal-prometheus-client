@@ -1,7 +1,6 @@
 module Prometheus
   module Client
     class Registry
-
       class AlreadyRegisteredError < Exception
       end
 

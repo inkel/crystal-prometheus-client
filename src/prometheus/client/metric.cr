@@ -13,7 +13,7 @@ module Prometheus
       end
 
       def values
-        @values ||= Hash(Hash(Symbol, String), Float64).new{ |h,k| h[k] = 0.0 }
+        @values ||= Hash(Hash(Symbol, String), Float64).new { |h, k| h[k] = 0.0 }
       end
 
       def get(labels = {} of Symbol => String)

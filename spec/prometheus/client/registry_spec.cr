@@ -7,6 +7,7 @@ end
 
 struct Metric
   property name
+
   def initialize(@name : Symbol)
   end
 end

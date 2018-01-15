@@ -50,12 +50,12 @@ describe Prometheus::Client::Histogram::Value do
 
   it "should be a set of bucket values" do
     with_value do |value|
-      value.should eq({ 2.5 => 0.0, 5 => 2.0, 10 => 3.0 })
+      value.should eq({2.5 => 0.0, 5 => 2.0, 10 => 3.0})
     end
   end
 
   it "uses zero as default value" do
     value = Prometheus::Client::Histogram::Value.new([2.5, 5.0, 10.0])
-    value.should eq({ 2.5 => 0.0, 5 => 0.0, 10 => 0.0 })
+    value.should eq({2.5 => 0.0, 5 => 0.0, 10 => 0.0})
   end
 end
