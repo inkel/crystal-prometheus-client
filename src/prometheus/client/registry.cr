@@ -1,3 +1,7 @@
+require "./counter"
+require "./gauge"
+require "./histogram"
+
 module Prometheus
   module Client
     class Registry
@@ -24,6 +28,18 @@ module Prometheus
 
       def get(name : Symbol)
         @metrics[name]?
+      end
+
+      def counter(name, docstring, base_labels)
+        register(Prometheus::Client::Counter.new(name, docstring, base_labels))
+      end
+
+      def gauge(name, docstring, base_labels)
+        register(Prometheus::Client::Gauge.new(name, docstring, base_labels))
+      end
+
+      def histogram(name, docstring, base_labels, buckets)
+        register(Prometheus::Client::Histogram.new(name, docstring, base_labels, buckets))
       end
     end
   end

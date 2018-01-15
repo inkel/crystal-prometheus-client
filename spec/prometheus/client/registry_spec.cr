@@ -74,4 +74,41 @@ describe Prometheus::Client::Registry do
       end
     end
   end
+
+  describe "#counter" do
+    it "should return a Prometheus::Client::Counter" do
+      with_registry do |registry|
+        counter = registry.counter(:foo, "lorem ipsum", {:bar => "baz"})
+        counter.should be_a(Prometheus::Client::Counter)
+        counter.name.should eq(:foo)
+        counter.docstring.should eq("lorem ipsum")
+        counter.base_labels.should eq({:bar => "baz"})
+      end
+    end
+  end
+
+  describe "#gauge" do
+    it "should return a Prometheus::Client::Gauge" do
+      with_registry do |registry|
+        gauge = registry.gauge(:foo, "lorem ipsum", {:bar => "baz"})
+        gauge.should be_a(Prometheus::Client::Gauge)
+        gauge.name.should eq(:foo)
+        gauge.docstring.should eq("lorem ipsum")
+        gauge.base_labels.should eq({:bar => "baz"})
+      end
+    end
+  end
+
+  describe "#histogram" do
+    it "should return a Prometheus::Client::Histogram" do
+      with_registry do |registry|
+        histogram = registry.histogram(:foo, "lorem ipsum", {:bar => "baz"}, [0.5, 1.0, 2.0])
+        histogram.should be_a(Prometheus::Client::Histogram)
+        histogram.name.should eq(:foo)
+        histogram.docstring.should eq("lorem ipsum")
+        histogram.base_labels.should eq({:bar => "baz"})
+        histogram.buckets.should eq([0.5, 1.0, 2.0])
+      end
+    end
+  end
 end
