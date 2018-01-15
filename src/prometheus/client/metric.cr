@@ -2,7 +2,7 @@ require "./label_set_validator"
 
 module Prometheus
   module Client
-    class Metric(T)
+    class Metric
       getter name, docstring, base_labels
 
       def initialize(@name : Symbol, @docstring : String, @base_labels = {} of Symbol => String)

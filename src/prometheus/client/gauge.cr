@@ -2,7 +2,7 @@ require "./metric"
 
 module Prometheus
   module Client
-    class Gauge < Metric(Float64)
+    class Gauge < Metric
       def set(labels = {} of Symbol => String, value : Float64 = 0.0)
         values[labels] = value
       end
