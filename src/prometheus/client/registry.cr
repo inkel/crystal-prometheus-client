@@ -9,7 +9,7 @@ module Prometheus
       end
 
       def initialize
-        @metrics = {} of Symbol => Symbol
+        @metrics = Hash(Symbol, Metric).new
       end
 
       def register(metric)
@@ -17,7 +17,7 @@ module Prometheus
 
         raise AlreadyRegisteredError.new("#{name} has already been registered") if exist?(name)
 
-        @metrics[name] = name
+        @metrics[name] = metric
 
         metric
       end

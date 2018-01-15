@@ -5,13 +5,6 @@ def with_registry
   yield Prometheus::Client::Registry.new
 end
 
-struct Metric
-  property name
-
-  def initialize(@name : Symbol)
-  end
-end
-
 describe Prometheus::Client::Registry do
   describe ".new" do
     it "returns a new registry instance" do
@@ -23,7 +16,7 @@ describe Prometheus::Client::Registry do
 
   describe "#register" do
     it "registers a new metric container and returns it" do
-      metric = Metric.new(:test)
+      metric = Prometheus::Client::Metric.new(:test, "foo")
 
       with_registry do |registry|
         registry.register(metric).should eq(metric)
@@ -31,7 +24,7 @@ describe Prometheus::Client::Registry do
     end
 
     it "raises an exception if a metric name gets registered twice" do
-      metric = Metric.new(:test)
+      metric = Prometheus::Client::Metric.new(:test, "foo")
 
       with_registry do |registry|
         registry.register(metric)
@@ -46,7 +39,7 @@ describe Prometheus::Client::Registry do
   describe "#exist?" do
     it "returns true if a metric name has been registered" do
       with_registry do |registry|
-        registry.register(Metric.new(name: :test))
+        registry.register(metric = Prometheus::Client::Metric.new(:test, "foo"))
 
         registry.exist?(:test).should eq(true)
       end
@@ -62,9 +55,11 @@ describe Prometheus::Client::Registry do
   describe "#get" do
     it "returns a previously registered metric container" do
       with_registry do |registry|
-        registry.register(Metric.new(name: :test))
+        counter = Prometheus::Client::Counter.new(:foo, "lorem ipsum", {:bar => "baz"})
 
-        registry.get(:test).should eq(:test)
+        registry.register(counter)
+
+        registry.get(:foo).should eq(counter)
       end
     end
 
