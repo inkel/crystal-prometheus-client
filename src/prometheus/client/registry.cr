@@ -42,6 +42,18 @@ module Prometheus
       def histogram(name, docstring, base_labels, buckets)
         register(Prometheus::Client::Histogram.new(name, docstring, base_labels, buckets))
       end
+
+      def counter(name, docstring, base_labels)
+        register(Prometheus::Client::Counter.new(name, docstring, base_labels))
+      end
+
+      def gauge(name, docstring, base_labels)
+        register(Prometheus::Client::Gauge.new(name, docstring, base_labels))
+      end
+
+      def histogram(name, docstring, base_labels, buckets)
+        register(Prometheus::Client::Histogram.new(name, docstring, base_labels, buckets))
+      end
     end
   end
 end
