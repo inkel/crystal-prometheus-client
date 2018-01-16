@@ -63,7 +63,7 @@ describe Prometheus::Client::Histogram do
 
     it "uses zero as default value" do
       with_histogram_and_values do |histogram|
-        histogram.get({} of Symbol => String).should eq({2.5 => 0.0, 5 => 0.0, 10 => 0.0})
+        histogram.get({:foo => "foo"}).should eq({2.5 => 0.0, 5 => 0.0, 10 => 0.0})
       end
     end
   end

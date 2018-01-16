@@ -17,8 +17,7 @@ module Prometheus
       end
 
       def get(labels = {} of Symbol => String)
-        @validator.valid?(labels)
-        values[labels]
+        values[label_set_for(labels)]
       end
 
       RE_NAME = /\A[a-zA-Z_:][a-zA-Z0-9_:]*\Z/
@@ -29,6 +28,10 @@ module Prometheus
 
       private def validate_docstring
         raise ArgumentError.new("docstring must be given") if docstring.empty?
+      end
+
+      private def label_set_for(labels : Hash(Symbol, String))
+        @validator.validate(labels)
       end
     end
   end

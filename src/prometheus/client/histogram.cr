@@ -13,7 +13,7 @@ module Prometheus
       end
 
       def observe(labels : Hash(Symbol, String), value : Float64)
-        values[labels].observe(value)
+        values[label_set_for(labels)].observe(value)
       end
 
       def values

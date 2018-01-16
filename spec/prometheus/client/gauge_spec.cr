@@ -26,7 +26,7 @@ describe Prometheus::Client::Gauge do
       with_gauge do |gauge|
         gauge.set({:test => "value"}, 5.0)
         gauge.get({:test => "value"}).should eq(5.0)
-        gauge.get.should eq(0.0)
+        gauge.get({:test => "foobar"}).should eq(0.0)
       end
     end
   end
