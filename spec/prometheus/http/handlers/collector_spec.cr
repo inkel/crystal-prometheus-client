@@ -62,7 +62,7 @@ describe Prometheus::HTTP::Handlers::Collector do
     request = HTTP::Request.new("GET", "/foo")
     response = HTTP::Server::Response.new(io)
     context = HTTP::Server::Context.new(request, response)
-    registry = Prometheus::Client.registry
+    registry = Prometheus::Client::Registry.new
 
     handler = Prometheus::HTTP::Handlers::Collector.new(registry: registry)
     handler.next = ->(ctx : HTTP::Server::Context) do
