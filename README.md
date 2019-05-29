@@ -1,6 +1,6 @@
-# Prometheus Ruby Client
+# Prometheus Crystal Client
 
-A suite of instrumentation metric primitives for Ruby that can be exposed through a HTTP interface. Intended to be used together with a [Prometheus server][prometheus].
+A suite of instrumentation metric primitives for Crystal that can be exposed through a HTTP interface. Intended to be used together with a [Prometheus server][prometheus].
 
 [![Build Status](https://travis-ci.org/inkel/crystal-prometheus-client.svg?branch=master)](https://travis-ci.org/inkel/crystal-prometheus-client)
 
@@ -40,7 +40,7 @@ The following metric types are currently supported.
 
 Counter is a metric that exposes merely a sum or tally of things.
 
-```ruby
+```crystal
 counter = Prometheus::Client::Counter.new(:service_requests_total, "...")
 
 # increment the counter for a given label set
@@ -59,7 +59,7 @@ counter.get({ :service => "bar" })
 Gauge is a metric that exposes merely an instantaneous value or some snapshot
 thereof.
 
-```ruby
+```crystal
 gauge = Prometheus::Client::Gauge.new(:room_temperature_celsius, "...")
 
 # set a value
@@ -72,7 +72,7 @@ gauge.get({ :room => "kitchen" })
 
 Also you can use gauge as the bi-directional counter:
 
-```ruby
+```crystal
 gauge = Prometheus::Client::Gauge.new(:concurrent_requests_total, "...")
 
 gauge.increment({ :service => "foo" })
@@ -88,7 +88,7 @@ A histogram samples observations (usually things like request durations or
 response sizes) and counts them in configurable buckets. It also provides a sum
 of all observed values.
 
-```ruby
+```crystal
 histogram = Prometheus::Client::Histogram.new(:service_latency_seconds, "...")
 
 # record a value
